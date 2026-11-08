@@ -1,0 +1,11 @@
+{$STUDIO_HOST} {
+	encode gzip
+	reverse_proxy cap-web:3000
+}
+
+{$FILES_HOST} {
+	# S3 API for presigned video URLs (bucket stays private)
+	reverse_proxy minio:9000 {
+		header_up Host {host}
+	}
+}
